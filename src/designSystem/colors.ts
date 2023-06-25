@@ -1,5 +1,9 @@
 const COLORS = Object.freeze({
-  'white-100': '#fff',
+  "white-100": "#fff",
+
+  "gray-100": "#353535",
+
+  "blue-50": "#1677ff",
 });
 
 export const WHITE = (number: Number) => COLORS[`white-${number}`];
