@@ -11,3 +11,8 @@ export const FIRE_BASE_CONFIG = {
   appId: "1:41050918928:web:3dadf2a2d4a437e4673a95",
   measurementId: "G-QNK5PZSX37",
 };
+
+export const EXTERNAL_API_BASE_URL = {
+  UPBIT: "https://api.upbit.com/v1",
+  UPBIT_WS: "wss://api.upbit.com/websocket/v1",
+};

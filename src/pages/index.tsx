@@ -1,7 +1,1 @@
-type Props = {};
-
-function Main({}: Props) {
-  return <div>Main</div>;
-}
-
-export default Main;
+export { default } from "./main";
