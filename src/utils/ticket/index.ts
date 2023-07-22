@@ -1,5 +1,6 @@
 import * as R from "rambda";
 import { TTicker } from "@/types";
+import { TCoinList } from "@/API/upbit";
 
 export const updateLatestTickerInfo = (params: {
   currentAllTickerInfo: TTicker[];
@@ -19,4 +20,15 @@ export const updateLatestTickerInfo = (params: {
   }
 
   return currentAllTickerInfo;
+};
+
+export const refineAllMarket = (allCoinList: TCoinList) => {
+  const allCoinInfo = {};
+
+  for (const coinInfo of allCoinList) {
+    const { market } = coinInfo;
+    allCoinInfo[market] = coinInfo;
+  }
+
+  return allCoinInfo;
 };

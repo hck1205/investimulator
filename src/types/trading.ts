@@ -68,3 +68,12 @@ export type TOrderbookUnit = {
   bid_price: number; // 38624000;
   bid_size: number; // 0.05178127;
 };
+
+export type TMarket = {
+  [key: string]: {
+    english_name: string;
+    korean_name: string;
+    market: string;
+    market_warning: string;
+  };
+};

@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css } from "@emotion/react";
 
 export const DEFAULT_FLEX = css`
   display: flex;
@@ -23,4 +23,16 @@ export const FLEX_RIGHT = css`
 export const FLEX_COLUMN = css`
   ${FLEX_CENTER}
   flex-direction: column;
+`;
+
+export const FLEX_COLUMN_EVEN = css`
+  ${FLEX_COLUMN}
+  justify-content: space-evenly;
+`;
+
+export const HOVER_STYLE = css`
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
 `;

@@ -13,6 +13,9 @@ export const getAllMarket = async (): Promise<TCoinList> => {
   const { data } = await axios({
     url: `${EXTERNAL_API_BASE_URL.UPBIT}/market/all`,
     method: "get",
+    params: {
+      isDetails: true,
+    },
   });
 
   return data;

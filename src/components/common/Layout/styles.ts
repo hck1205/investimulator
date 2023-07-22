@@ -10,5 +10,6 @@ export const LayoutWrapper = styled.div`
     height: 100%;
     background-color: ${GRAY(100)};
     color: ${WHITE(100)};
+    overflow: auto;
   }
 `;
