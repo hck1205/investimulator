@@ -9,7 +9,7 @@ export type TCoinInfo = {
 
 export type TCoinList = TCoinInfo[];
 
-const getAllMarket = async (): Promise<TCoinList> => {
+export const getAllMarket = async (): Promise<TCoinList> => {
   const { data } = await axios({
     url: `${EXTERNAL_API_BASE_URL.UPBIT}/market/all`,
     method: "get",
@@ -17,5 +17,3 @@ const getAllMarket = async (): Promise<TCoinList> => {
 
   return data;
 };
-
-export default getAllMarket;

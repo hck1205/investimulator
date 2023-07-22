@@ -1,1 +1,2 @@
-export { default as getAllMarket } from "./getAllMarket";
+export * from "./getAllMarket";
+export * from "./getTickerMaketPrice";

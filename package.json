@@ -30,12 +30,14 @@
     "firebase": "^9.23.0",
     "jotai": "^2.2.2",
     "next": "^13.4.7",
+    "rambda": "^8.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-use-websocket": "^4.3.1",
     "uuidv4": "^6.2.13"
   },
   "devDependencies": {
+    "@babel/template": "^7.22.5",
     "@emotion/babel-plugin": "^11.11.0",
     "@types/node": "^20.3.1",
     "@types/react": "^18.2.14",
