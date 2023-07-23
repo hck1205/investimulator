@@ -1,9 +1,9 @@
-import { useCurrentAllTickerInfoValue } from "@/atoms/ticketPriceAtom";
-import TickerRow from "./TickerRow";
+import { useCurrentAllTickerInfoValue } from '@/atoms/ticketPriceAtom';
+import TickerRow from './TickerRow';
 
-import * as S from "./TickerBoard.styled";
+import * as S from './TickerBoard.styled';
 
-import type { TTicker } from "@/types";
+import type { TTicker } from '@/types';
 
 function TickerBoard() {
   const currentAllTickerList = useCurrentAllTickerInfoValue();
@@ -12,7 +12,6 @@ function TickerBoard() {
     <S.TableBoardWrapper className="test">
       <S.MarketTable>
         <colgroup>
-          <col id="favourite-symbol" width={20} />
           <col id="name" width={30} />
           <col id="current-value" width={10} />
           <col id="prev-comparison" width={10} />
@@ -22,7 +21,6 @@ function TickerBoard() {
 
         <thead>
           <tr>
-            <th className="favourite" />
             <th className="name">이름</th>
             <th className="current-value">현재가</th>
             <th className="prv-comparison">전일대비</th>

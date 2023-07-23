@@ -1,12 +1,14 @@
-import { memo, useMemo } from "react";
-import clsx from "clsx";
-import { StarOutlined } from "@ant-design/icons";
+import clsx from 'clsx';
+import { memo, useMemo } from 'react';
+import { StarOutlined } from '@ant-design/icons';
 
-import * as S from "./TickerRow.styled";
+import { LogoImage } from '@/components/common';
+import { useAllMarketValue } from '@/atoms/upbitAtom';
+import { convertToNumberLocale, convertToPercentage } from '@/utils';
 
-import type { TTicker } from "@/types";
-import { useAllMarketValue } from "@/atoms/upbitAtom";
-import { convertToNumberLocale, convertToPercentage } from "@/utils";
+import * as S from './TickerRow.styled';
+
+import type { TTicker } from '@/types';
 
 const toggleBlink = setTimeout(() => {
   return;
@@ -17,7 +19,7 @@ type TProps = {
   no: number;
 };
 
-function TickerRow({ ticker, no }: TProps) {
+function TickerRow({ ticker }: TProps) {
   const {
     code,
     trade_price,
@@ -25,40 +27,59 @@ function TickerRow({ ticker, no }: TProps) {
     signed_change_price,
     acc_trade_price_24h,
   } = ticker;
+
   const allMarketInfo = useAllMarketValue();
 
-  const [koreanName, _code] = useMemo(() => {
+  const [koreanName, currency, coinName] = useMemo(() => {
     const marketInfo = allMarketInfo[code];
     const krName = marketInfo.korean_name;
-    const [coinName, currency] = marketInfo.market.split("-");
+    const [currency, coinName] = marketInfo.market.split('-');
 
-    return [krName, `${coinName}/${currency}`];
+    return [krName, currency, coinName];
   }, [code]);
+
+  const getStatusClassName = (value: number) => {
+    return clsx({
+      positive: value > 0,
+      negative: value < 0,
+      neutral: value === 0,
+    });
+  };
+
+  const tradePrice = convertToNumberLocale(trade_price); // 현재가
+  const comparisonPercentage = convertToPercentage(signed_change_rate); // 전일대비 %
+  const comparisonValue = convertToNumberLocale(signed_change_price); // 전일대비
+  const transactionAmount = convertToNumberLocale(acc_trade_price_24h, {
+    notation: 'compact',
+    maximumFractionDigits: 2,
+  }); // 거래액(일)
 
   return (
     <S.TickerRow>
-      <td className={clsx(["favourite", { active: false }])}>
-        <StarOutlined />
-      </td>
-
       <td className="name">
-        <span>{koreanName}</span>
-        <span>{_code}</span>
+        <span>
+          <LogoImage name={coinName} text={koreanName} />
+        </span>
+
+        <span className={clsx(['favourite', { active: false }])}>
+          <StarOutlined className="star-symbol" />
+          {`${coinName}/${currency}`}
+        </span>
       </td>
 
-      <td>{convertToNumberLocale(trade_price)}</td>
+      <td>{tradePrice}</td>
 
       <td className="prev-comparison">
-        <span>{convertToPercentage(signed_change_rate)}</span>
-        <span>{convertToNumberLocale(signed_change_price)}</span>
+        <span className={getStatusClassName(signed_change_rate)}>
+          {comparisonPercentage}
+        </span>
+
+        <span className={getStatusClassName(signed_change_price)}>
+          {comparisonValue}
+        </span>
       </td>
 
-      <td>
-        {convertToNumberLocale(acc_trade_price_24h, {
-          notation: "compact",
-          maximumFractionDigits: 2,
-        })}
-      </td>
+      <td>{transactionAmount}</td>
     </S.TickerRow>
   );
 }

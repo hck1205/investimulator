@@ -1,5 +1,14 @@
-import { FLEX_COLUMN, FLEX_COLUMN_EVEN, HOVER_STYLE } from "@/designSystem";
-import styled from "@emotion/styled";
+import {
+  FLEX_COLUMN,
+  FLEX_COLUMN_CENTER,
+  FLEX_COLUMN_EVEN,
+  GRAY,
+  GREEN,
+  HOVER_STYLE,
+  RED,
+  WHITE,
+} from '@/designSystem';
+import styled from '@emotion/styled';
 
 export const TickerRow = styled.tr`
   .blink {
@@ -13,7 +22,7 @@ export const TickerRow = styled.tr`
   }
 
   td {
-    text-align: center;
+    text-align: end;
     height: 55px;
     font-size: 14px;
 
@@ -22,22 +31,47 @@ export const TickerRow = styled.tr`
     }
   }
 
-  .favourite {
-    ${HOVER_STYLE}
+  .name {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    justify-content: center;
+    word-break: break-all;
+    gap: 6px;
 
-    &.active {
-      svg > path {
-        fill: yellow;
+    .favourite {
+      ${HOVER_STYLE}
+      font-size: 12px;
+      color: ${GRAY(50)};
+
+      &.active {
+        svg > path {
+          fill: yellow;
+        }
+      }
+
+      .star-symbol {
+        margin-right: 12px;
       }
     }
   }
 
-  .name {
-    ${FLEX_COLUMN_EVEN};
-    word-break: break-all;
-  }
-
   .prev-comparison {
-    ${FLEX_COLUMN_EVEN}
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+
+    .negative {
+      color: ${RED(50)};
+    }
+
+    .positive {
+      color: ${GREEN(50)};
+    }
+
+    .neutral {
+      color: ${WHITE(100)};
+    }
   }
 `;

@@ -1,9 +1,9 @@
-import { memo, useEffect } from "react";
+import { useEffect } from 'react';
 
-import useUpbitWebSocket from "@/hooks/useUpbitWebSocket";
-import TickerBoard from "@/components/TickerBoard";
+import useUpbitWebSocket from '@/hooks/useUpbitWebSocket';
+import TickerBoard from '@/components/TickerBoard';
 
-import * as S from "./main.styled";
+import * as S from './main.styled';
 
 function Main() {
   useUpbitWebSocket();

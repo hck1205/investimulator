@@ -1,11 +1,11 @@
-import styled from "@emotion/styled";
+import { BLUE, GRAY } from '@/designSystem';
+import styled from '@emotion/styled';
 
 export const TableBoardWrapper = styled.div``;
 
 export const MarketTable = styled.table`
   width: 100%;
   border-collapse: collapse;
-  padding: 0 50px;
 
   thead {
     height: 50px;
@@ -16,11 +16,16 @@ export const MarketTable = styled.table`
     }
 
     tr {
-      border-bottom: 1px solid #fff;
+      border-bottom: 1px solid ${BLUE(30)};
 
       th {
         border: unset;
-        text-align: center;
+        text-align: end;
+        color: ${GRAY(50)};
+
+        &.name {
+          text-align: start;
+        }
       }
     }
   }

@@ -1,22 +1,24 @@
-import Head from "next/head";
-import { useEffect } from "react";
-import styled from "@emotion/styled";
+'use client';
 
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import Head from 'next/head';
+import { useEffect } from 'react';
 
-import { LayoutComponent } from "@/components";
-import { FIRE_BASE_CONFIG } from "@/constpack";
-import { GRAY, WHITE } from "@/designSystem";
+import { LayoutComponent } from '@/components';
 
-import type { AppProps } from "next/app";
+// import { initializeApp } from 'firebase/app';
+// import { getAnalytics } from 'firebase/analytics';
 
-import "../../public/assets/styles/index.scss";
+// import { FIRE_BASE_CONFIG } from '@/constpack';
+// import { GRAY, WHITE } from '@/designSystem';
+
+import type { AppProps } from 'next/app';
+
+import '../../public/assets/styles/index.scss';
 
 const RootApp = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
-    const app = initializeApp(FIRE_BASE_CONFIG);
-    const analytics = getAnalytics(app);
+    // const app = initializeApp(FIRE_BASE_CONFIG);
+    // const analytics = getAnalytics(app);
   }, []);
 
   return (
