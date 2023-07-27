@@ -1,11 +1,14 @@
 import { BLUE, GRAY } from '@/designSystem';
 import styled from '@emotion/styled';
 
-export const TableBoardWrapper = styled.div``;
+export const TableBoardWrapper = styled.div`
+  padding: 0 20px;
+`;
 
 export const MarketTable = styled.table`
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
 
   thead {
     height: 50px;
@@ -16,7 +19,7 @@ export const MarketTable = styled.table`
     }
 
     tr {
-      border-bottom: 1px solid ${BLUE(30)};
+      box-shadow: inset 0 -1px 0 0 ${BLUE(30)};
 
       th {
         border: unset;
@@ -26,6 +29,15 @@ export const MarketTable = styled.table`
         &.name {
           text-align: start;
         }
+
+        &:first-of-type,
+        &:last-of-type {
+          padding: 0 3px;
+        }
+      }
+
+      td {
+        overflow: hidden;
       }
     }
   }

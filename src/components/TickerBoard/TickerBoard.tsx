@@ -9,14 +9,13 @@ function TickerBoard() {
   const currentAllTickerList = useCurrentAllTickerInfoValue();
 
   return (
-    <S.TableBoardWrapper className="test">
+    <S.TableBoardWrapper>
       <S.MarketTable>
         <colgroup>
-          <col id="name" width={30} />
-          <col id="current-value" width={10} />
+          <col id="name" width={20} />
+          <col id="current-value" width={20} />
           <col id="prev-comparison" width={10} />
           <col id="transaction-amount" width={30} />
-          <col id="rest" width="*" />
         </colgroup>
 
         <thead>

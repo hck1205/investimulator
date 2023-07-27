@@ -1,18 +1,20 @@
-import clsx from 'clsx';
-import { memo, useMemo } from 'react';
-import { StarOutlined } from '@ant-design/icons';
+import { memo, useEffect, useState } from 'react';
 
-import { LogoImage } from '@/components/common';
 import { useAllMarketValue } from '@/atoms/upbitAtom';
-import { convertToNumberLocale, convertToPercentage } from '@/utils';
 
-import * as S from './TickerRow.styled';
+import Name from './Name';
+import TradePrice from './TradePrice';
+import ComparisonPrice from './ComparisonPrice';
+import TransactionAmount from './TransactionAmount';
 
 import type { TTicker } from '@/types';
+import * as S from './TickerRow.styled';
 
-const toggleBlink = setTimeout(() => {
-  return;
-}, 0);
+export enum STATUS {
+  POSITIVE = 'positive',
+  NEGATIVE = 'negative',
+  NEUTRAL = 'neutral',
+}
 
 type TProps = {
   ticker: TTicker;
@@ -29,57 +31,55 @@ function TickerRow({ ticker }: TProps) {
   } = ticker;
 
   const allMarketInfo = useAllMarketValue();
+  const [currentPrice, setCurrentPrice] = useState(0);
+  const [currentStatus, setCurrentStatus] = useState({
+    status: STATUS.NEUTRAL, // -1: negative, 0: neutral, 1: positive
+  });
 
-  const [koreanName, currency, coinName] = useMemo(() => {
-    const marketInfo = allMarketInfo[code];
-    const krName = marketInfo.korean_name;
-    const [currency, coinName] = marketInfo.market.split('-');
+  useEffect(() => {
+    if (currentPrice === 0) {
+      setCurrentPrice(signed_change_price);
+    } else {
+      if (signed_change_price === currentPrice) {
+        setCurrentStatus({ status: STATUS.NEUTRAL });
+      } else {
+        const isPositive = signed_change_price > currentPrice;
+        const status = isPositive ? STATUS.POSITIVE : STATUS.NEGATIVE;
+        setCurrentStatus({ status });
+        setCurrentPrice(signed_change_price);
+      }
+    }
+  }, [signed_change_price]);
 
-    return [krName, currency, coinName];
-  }, [code]);
+  useEffect(() => {
+    const row = document.getElementById(code);
 
-  const getStatusClassName = (value: number) => {
-    return clsx({
-      positive: value > 0,
-      negative: value < 0,
-      neutral: value === 0,
-    });
-  };
+    if (row) {
+      const { status } = currentStatus;
+      row.classList.add(status);
 
-  const tradePrice = convertToNumberLocale(trade_price); // 현재가
-  const comparisonPercentage = convertToPercentage(signed_change_rate); // 전일대비 %
-  const comparisonValue = convertToNumberLocale(signed_change_price); // 전일대비
-  const transactionAmount = convertToNumberLocale(acc_trade_price_24h, {
-    notation: 'compact',
-    maximumFractionDigits: 2,
-  }); // 거래액(일)
+      setTimeout(() => {
+        row.classList.remove(status);
+      }, 1000);
+    }
+  }, [currentStatus]);
 
   return (
-    <S.TickerRow>
-      <td className="name">
-        <span>
-          <LogoImage name={coinName} text={koreanName} />
-        </span>
+    <S.TickerRow id={code}>
+      {/* 네임 */}
+      <Name marketInfo={allMarketInfo[code]} />
 
-        <span className={clsx(['favourite', { active: false }])}>
-          <StarOutlined className="star-symbol" />
-          {`${coinName}/${currency}`}
-        </span>
-      </td>
+      {/* 현재가 */}
+      <TradePrice tradePrice={trade_price} />
 
-      <td>{tradePrice}</td>
+      {/* 전일대비 */}
+      <ComparisonPrice
+        signedChangePrice={signed_change_price}
+        signedChangeRate={signed_change_rate}
+      />
 
-      <td className="prev-comparison">
-        <span className={getStatusClassName(signed_change_rate)}>
-          {comparisonPercentage}
-        </span>
-
-        <span className={getStatusClassName(signed_change_price)}>
-          {comparisonValue}
-        </span>
-      </td>
-
-      <td>{transactionAmount}</td>
+      {/* 거래액 */}
+      <TransactionAmount accTradePrice24h={acc_trade_price_24h} />
     </S.TickerRow>
   );
 }
