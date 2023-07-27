@@ -14,6 +14,6 @@ export const FIRE_BASE_CONFIG = {
 
 export const EXTERNAL_API_BASE_URL = {
   UPBIT: 'https://api.upbit.com/v1',
-  UPBIT_WS: 'wss://api.upbit.com/websocket/v1',
   UPBIT_STATIC: 'https://static.upbit.com',
+  UPBIT_WS_TICKER: 'wss://api.upbit.com/websocket/v1',
 };

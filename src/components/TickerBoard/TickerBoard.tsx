@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react';
 import { useCurrentAllTickerInfoValue } from '@/atoms/ticketPriceAtom';
+import useOrderbookWebSocket from '@/hooks/useOrderbookWebSocket';
 import TickerRow from './TickerRow';
 
 import * as S from './TickerBoard.styled';
@@ -7,6 +9,19 @@ import type { TTicker } from '@/types';
 
 function TickerBoard() {
   const currentAllTickerList = useCurrentAllTickerInfoValue();
+  const [orderbookCode, setOrderbookCode] = useState(['KRW-BTC']);
+  const { sendJsonMessage, getWebSocket } = useOrderbookWebSocket({
+    codes: orderbookCode,
+  });
+
+  useEffect(() => {
+    setTimeout(() => {
+      const socket = getWebSocket();
+      if (socket) {
+        socket.close();
+      }
+    }, 5000);
+  }, [getWebSocket]);
 
   return (
     <S.TableBoardWrapper>
