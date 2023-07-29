@@ -1,5 +1,5 @@
 import * as R from "rambda";
-import { TTicker } from "@/types";
+import { TOrderbook, TTicker } from "@/types";
 import { TCoinList } from "@/API/upbit";
 
 export const updateLatestTickerInfo = (params: {
@@ -31,4 +31,13 @@ export const refineAllMarket = (allCoinList: TCoinList) => {
   }
 
   return allCoinInfo;
+};
+
+export const parseSocketMessage = async (lastMessage: MessageEvent<any>) => {
+  if (lastMessage) {
+    const msgStr = await new Response(lastMessage.data).text();
+    return JSON.parse(msgStr) as TTicker | TOrderbook;
+  } else {
+    return undefined;
+  }
 };

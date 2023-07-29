@@ -1,7 +1,7 @@
-import { GRAY, HOVER_STYLE } from '@/designSystem';
-import styled from '@emotion/styled';
+import { GRAY, HOVER_STYLE } from "@/designSystem";
+import styled from "@emotion/styled";
 
-export const NameWrapper = styled('td')`
+export const NameWrapper = styled("td")`
   display: flex;
   flex-direction: column;
   text-align: start;
@@ -14,6 +14,7 @@ export const NameWrapper = styled('td')`
     font-size: 12px;
     color: ${GRAY(50)};
     text-align: left;
+    width: fit-content;
 
     &.active {
       svg > path {

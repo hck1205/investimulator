@@ -1,19 +1,20 @@
-import { memo, useEffect, useState } from 'react';
+import { MouseEvent, memo, useEffect, useState } from "react";
 
-import { useAllMarketValue } from '@/atoms/upbitAtom';
+import { useAllMarketValue } from "@/atoms/marketAtom";
+import { useOrderbookCodeWrite } from "@/atoms/orderbookAtom/orderbookCodeAtom";
 
-import Name from './Name';
-import TradePrice from './TradePrice';
-import ComparisonPrice from './ComparisonPrice';
-import TransactionAmount from './TransactionAmount';
+import Name from "./Name";
+import TradePrice from "./TradePrice";
+import ComparisonPrice from "./ComparisonPrice";
+import TransactionAmount from "./TransactionAmount";
 
-import type { TTicker } from '@/types';
-import * as S from './TickerRow.styled';
+import type { TTicker } from "@/types";
+import * as S from "./TickerRow.styled";
 
 export enum STATUS {
-  POSITIVE = 'positive',
-  NEGATIVE = 'negative',
-  NEUTRAL = 'neutral',
+  POSITIVE = "positive",
+  NEGATIVE = "negative",
+  NEUTRAL = "neutral",
 }
 
 type TProps = {
@@ -31,6 +32,8 @@ function TickerRow({ ticker }: TProps) {
   } = ticker;
 
   const allMarketInfo = useAllMarketValue();
+  const setOrderbookCode = useOrderbookCodeWrite();
+
   const [currentPrice, setCurrentPrice] = useState(0);
   const [currentStatus, setCurrentStatus] = useState({
     status: STATUS.NEUTRAL, // -1: negative, 0: neutral, 1: positive
@@ -64,8 +67,23 @@ function TickerRow({ ticker }: TProps) {
     }
   }, [currentStatus]);
 
+  const handleClickRowEvent = (event: MouseEvent<HTMLTableRowElement>) => {
+    if (event.target instanceof HTMLElement) {
+      const targetClassName = event.target.className;
+
+      if (targetClassName === "favourite") {
+        // TODO
+        // SAVE localStorage
+      } else {
+        setOrderbookCode(code);
+      }
+    }
+
+    return;
+  };
+
   return (
-    <S.TickerRow id={code}>
+    <S.TickerRow id={code} onClick={handleClickRowEvent}>
       {/* 네임 */}
       <Name marketInfo={allMarketInfo[code]} />
 

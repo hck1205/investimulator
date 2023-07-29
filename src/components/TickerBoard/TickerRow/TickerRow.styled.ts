@@ -1,8 +1,14 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 
-import { GREEN, RED } from '@/designSystem';
+import { GREEN, RED } from "@/designSystem";
 
 export const TickerRow = styled.tr`
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
   &.negative {
     animation: red-blinker 0.6s step-start;
   }

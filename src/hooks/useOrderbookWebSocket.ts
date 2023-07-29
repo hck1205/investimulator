@@ -1,39 +1,57 @@
-import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import useWebSocket, { resetGlobalState } from 'react-use-websocket';
+import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import useWebSocket from "react-use-websocket";
+import { useOrderbookCodeValue } from "@/atoms/orderbookAtom/orderbookCodeAtom";
 
-import { EXTERNAL_API_BASE_URL, WEB_SOCKET } from '@/constpack';
+import {
+  DEFAULT_ORDERBOOK_CODE,
+  EXTERNAL_API_BASE_URL,
+  WEB_SOCKET,
+  WEB_SOCKET_CLOSE_CODE,
+} from "@/constpack";
 
-import type { TTicker } from '@/types';
+const useOrderbookWebSocket = () => {
+  const [runWebSocket, setRunWebSocket] = useState(true);
+  const orderbookCode = useOrderbookCodeValue();
 
-type TProps = {
-  codes: TTicker['code'][];
-};
-
-const useOrderbookWebSocket = ({ codes }: TProps) => {
   const { sendJsonMessage, lastMessage, readyState, getWebSocket } =
-    useWebSocket(EXTERNAL_API_BASE_URL.UPBIT_WS_TICKER, {
-      onOpen: async () => {
-        try {
-          return sendJsonMessage([
-            { ticket: uuidv4() },
-            { type: WEB_SOCKET.ORDER_BOOK, codes },
-          ]);
-        } catch (e) {
-          console.error('WEB_SOCKET.ORDER_BOOK: ', e);
-        }
-      },
-      onMessage: async (e) => {
-        try {
-          const msgStr = await new Response(e.data).text();
-          const orderbookInfo = JSON.parse(msgStr) as TTicker;
+    useWebSocket(
+      EXTERNAL_API_BASE_URL.UPBIT_WS_TICKER,
+      {
+        onOpen: () => {
+          try {
+            const code = orderbookCode || DEFAULT_ORDERBOOK_CODE;
 
-          console.log('orderbookInfo', orderbookInfo);
-        } catch (e) {
-          console.error(e);
-        }
+            return sendJsonMessage([
+              { ticket: uuidv4() },
+              { type: WEB_SOCKET.ORDER_BOOK, codes: [code] },
+            ]);
+          } catch (e) {
+            console.error("WEB_SOCKET.ORDER_BOOK onOpen: ", e);
+          }
+        },
+        onClose: ({ code }: WebSocketEventMap["close"]) => {
+          if (code === WEB_SOCKET_CLOSE_CODE) {
+            setRunWebSocket(true);
+          }
+        },
       },
-    });
+      runWebSocket
+    );
+
+  useEffect(() => {
+    const socket = getWebSocket();
+
+    if (orderbookCode && socket) {
+      setRunWebSocket(false);
+      /**
+       * https://www.rfc-editor.org/rfc/rfc6455.html#section-7.1.5
+       * Status codes in the range 3000-3999 are reserved for use by
+       * libraries, frameworks, and applications.
+       */
+      socket.close(WEB_SOCKET_CLOSE_CODE, "orderbook code update");
+    }
+  }, [orderbookCode]);
 
   return {
     lastMessage,

@@ -1,5 +1,5 @@
-import { BLUE, GRAY } from '@/designSystem';
-import styled from '@emotion/styled';
+import { BLUE, GRAY } from "@/designSystem";
+import styled from "@emotion/styled";
 
 export const TableBoardWrapper = styled.div`
   padding: 0 20px;

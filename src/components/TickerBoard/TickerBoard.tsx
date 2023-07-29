@@ -1,53 +1,42 @@
-import { useState, useEffect } from 'react';
-import { useCurrentAllTickerInfoValue } from '@/atoms/ticketPriceAtom';
-import useOrderbookWebSocket from '@/hooks/useOrderbookWebSocket';
-import TickerRow from './TickerRow';
+import TickerRow from "./TickerRow";
+import useTickerWebSocket from "@/hooks/useTickerWebSocket";
+import { useCurrentAllTickerInfoValue } from "@/atoms/ticketPriceAtom";
 
-import * as S from './TickerBoard.styled';
+import * as S from "./TickerBoard.styled";
 
-import type { TTicker } from '@/types';
+import type { TTicker } from "@/types";
 
 function TickerBoard() {
+  useTickerWebSocket();
   const currentAllTickerList = useCurrentAllTickerInfoValue();
-  const [orderbookCode, setOrderbookCode] = useState(['KRW-BTC']);
-  const { sendJsonMessage, getWebSocket } = useOrderbookWebSocket({
-    codes: orderbookCode,
-  });
-
-  useEffect(() => {
-    setTimeout(() => {
-      const socket = getWebSocket();
-      if (socket) {
-        socket.close();
-      }
-    }, 5000);
-  }, [getWebSocket]);
 
   return (
     <S.TableBoardWrapper>
-      <S.MarketTable>
-        <colgroup>
-          <col id="name" width={20} />
-          <col id="current-value" width={20} />
-          <col id="prev-comparison" width={10} />
-          <col id="transaction-amount" width={30} />
-        </colgroup>
+      {currentAllTickerList.length && (
+        <S.MarketTable>
+          <colgroup>
+            <col id="name" width={20} />
+            <col id="current-value" width={20} />
+            <col id="prev-comparison" width={10} />
+            <col id="transaction-amount" width={30} />
+          </colgroup>
 
-        <thead>
-          <tr>
-            <th className="name">이름</th>
-            <th className="current-value">현재가</th>
-            <th className="prv-comparison">전일대비</th>
-            <th className="transaction-amount">거래액(일)</th>
-          </tr>
-        </thead>
+          <thead>
+            <tr>
+              <th className="name">이름</th>
+              <th className="current-value">현재가</th>
+              <th className="prv-comparison">전일대비</th>
+              <th className="transaction-amount">거래액(일)</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          {currentAllTickerList.map((ticker: TTicker, index) => (
-            <TickerRow no={index} key={ticker.code} ticker={ticker} />
-          ))}
-        </tbody>
-      </S.MarketTable>
+          <tbody>
+            {currentAllTickerList.map((ticker: TTicker, index) => (
+              <TickerRow key={ticker.code} no={index} ticker={ticker} />
+            ))}
+          </tbody>
+        </S.MarketTable>
+      )}
     </S.TableBoardWrapper>
   );
 }
