@@ -1,3 +1,10 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
-export const OrderbookRow = styled.tr``;
+export const OrderbookRow = styled.tr<{ order: number }>`
+  order: ${({ order }) => order};
+
+  .price-wrapper {
+    display: flex;
+    gap: 20px;
+  }
+`;
