@@ -15,9 +15,9 @@ function TickerBoard() {
       {currentAllTickerList.length && (
         <S.MarketTable>
           <colgroup>
-            <col id="name" width={20} />
+            <col id="name" width={25} />
             <col id="current-value" width={20} />
-            <col id="prev-comparison" width={10} />
+            <col id="prev-comparison" width={20} />
             <col id="transaction-amount" width={30} />
           </colgroup>
 

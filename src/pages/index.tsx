@@ -8,7 +8,14 @@ import Orderbook from "@/components/Orderbook/Orderbook";
 function Main() {
   return (
     <S.MainPageWrapper>
-      <Orderbook />
+      <div className="mid-container">
+        <div className="orderbook-container">
+          <Orderbook />
+        </div>
+
+        <div className="make-order-container">준비중입니다.</div>
+      </div>
+
       <TickerBoard />
     </S.MainPageWrapper>
   );

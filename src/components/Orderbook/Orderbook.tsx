@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import { parseSocketMessage } from '@/utils';
-import useOrderbookWebSocket from '@/hooks/useOrderbookWebSocket';
+import { parseSocketMessage } from "@/utils";
+import useOrderbookWebSocket from "@/hooks/useOrderbookWebSocket";
 
-import OrderbookRow from './OrderbookRow';
+import OrderbookRow from "./OrderbookRow";
 
-import type { TOrderbook, TOrderbookUnit } from '@/types';
-import * as S from './Orderbook.styled';
+import * as S from "./Orderbook.styled";
+import type { TOrderbook, TOrderbookUnit } from "@/types";
 
 function Orderbook() {
   const { lastMessage } = useOrderbookWebSocket();
@@ -24,19 +24,14 @@ function Orderbook() {
 
   return (
     <S.OrderbookWrapper>
-      <S.OrderbookTable>
-        <colgroup>
-          <col></col>
-        </colgroup>
-        <thead>
-          <tr>
-            <th>매수량</th>
-            <th>가격</th>
-            <th>매도량</th>
-          </tr>
-        </thead>
+      <S.OrderbookContainer>
+        <ul className="header">
+          <h3>매수량</h3>
+          <h3>가격</h3>
+          <h3>매도량</h3>
+        </ul>
 
-        <tbody>
+        <ul className="content-container">
           {orderbookData?.orderbook_units.map(
             (data: TOrderbookUnit, index: number) => {
               return (
@@ -48,8 +43,8 @@ function Orderbook() {
               );
             }
           )}
-        </tbody>
-      </S.OrderbookTable>
+        </ul>
+      </S.OrderbookContainer>
     </S.OrderbookWrapper>
   );
 }

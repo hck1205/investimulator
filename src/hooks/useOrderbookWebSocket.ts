@@ -11,7 +11,7 @@ import {
 } from "@/constpack";
 
 const useOrderbookWebSocket = () => {
-  const [runWebSocket, setRunWebSocket] = useState(true);
+  const [connectWebSocket, setConnectWebSocket] = useState(true);
   const orderbookCode = useOrderbookCodeValue();
 
   const { sendJsonMessage, lastMessage, readyState, getWebSocket } =
@@ -32,18 +32,18 @@ const useOrderbookWebSocket = () => {
         },
         onClose: ({ code }: WebSocketEventMap["close"]) => {
           if (code === WEB_SOCKET_CLOSE_CODE) {
-            setRunWebSocket(true);
+            setConnectWebSocket(true);
           }
         },
       },
-      runWebSocket
+      connectWebSocket
     );
 
   useEffect(() => {
     const socket = getWebSocket();
 
     if (orderbookCode && socket) {
-      setRunWebSocket(false);
+      setConnectWebSocket(false);
       /**
        * https://www.rfc-editor.org/rfc/rfc6455.html#section-7.1.5
        * Status codes in the range 3000-3999 are reserved for use by

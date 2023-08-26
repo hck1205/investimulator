@@ -15,7 +15,7 @@ export const MarketTable = styled.table`
     font-size: 16px;
 
     @media (max-width: 700px) {
-      font-size: 14px;
+      font-size: 12px;
     }
 
     tr {

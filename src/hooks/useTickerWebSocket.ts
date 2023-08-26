@@ -59,7 +59,7 @@ const useTickerWebSocket = () => {
            */
           return sendJsonMessage([
             { ticket: uuidv4() },
-            { type: WEB_SOCKET.TICKER, codes: ["KRW-BTC"] },
+            { type: WEB_SOCKET.TICKER, codes },
           ]);
         } catch (e) {
           console.error(e);
