@@ -1,5 +1,5 @@
-import { GREEN, RED } from "@/designSystem";
-import styled from "@emotion/styled";
+import { GREEN, RED } from '@/designSystem';
+import styled from '@emotion/styled';
 
 export const TickerDetailWrapper = styled.div`
   padding: 20px;
@@ -31,11 +31,11 @@ export const NameWrapper = styled.div`
   gap: 5px;
 
   p {
-    font-size: 45px;
+    font-size: 30px;
     margin-left: 5px;
 
     @media (max-width: 800px) {
-      font-size: 35px;
+      font-size: 18px;
     }
   }
 `;
@@ -56,37 +56,58 @@ export const TransactionInfo = styled.div`
     gap: 10px;
 
     .price {
-      font-size: 40px;
+      font-size: 30px;
 
       @media (max-width: 800px) {
-        font-size: 25px;
-      }
-
-      &.positive {
-        color: ${GREEN(50)};
-      }
-
-      &.negative {
-        color: ${RED(50)};
+        font-size: 18px;
       }
     }
 
     .prev-container {
       display: flex;
       gap: 15px;
-      font-size: 20px;
+      font-size: 16px;
 
       @media (max-width: 800px) {
-        font-size: 16px;
+        font-size: 14px;
+        flex-direction: column;
+        gap: 5px;
       }
+    }
 
-      &.positive {
-        color: ${GREEN(50)};
-      }
+    .positive {
+      color: ${GREEN(50)};
+    }
 
-      &.negative {
-        color: ${RED(50)};
+    .negative {
+      color: ${RED(50)};
+    }
+  }
+
+  .transaction-value-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0px 30px;
+    font-size: 16px;
+
+    @media (max-width: 800px) {
+      grid-template-columns: 1fr;
+      gap: 8px 15px;
+    }
+
+    div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+
+      @media (max-width: 800px) {
+        gap: 15px;
       }
+    }
+
+    @media (max-width: 800px) {
+      font-size: 14px;
     }
   }
 `;

@@ -1,17 +1,20 @@
-import { useEffect, useMemo, useState } from "react";
-import useSingleTickerWebSocket from "@/hooks/useSingleTickerWebSocket";
+import { useEffect, useMemo, useState } from 'react';
+import clsx from 'clsx';
+
+import useSingleTickerWebSocket from '@/hooks/useSingleTickerWebSocket';
 import {
   convertToNumberLocale,
   convertToPercentage,
   parseSocketMessage,
-} from "@/utils";
+} from '@/utils';
 
-import * as S from "./TickerDetail.styled";
-import { TTicker } from "@/types";
-import { useOrderbookCodeValue } from "@/atoms/orderbookAtom/orderbookCodeAtom";
-import { LogoImage } from "../common";
-import { useAllMarketValue } from "@/atoms/marketAtom";
-import clsx from "clsx";
+import { useAllMarketValue } from '@/atoms/marketAtom';
+import { useOrderbookCodeValue } from '@/atoms/orderbookAtom/orderbookCodeAtom';
+
+import { LogoImage } from '../common';
+
+import type { TTicker } from '@/types';
+import * as S from './TickerDetail.styled';
 
 function TickerDetail() {
   const [tickerDetail, setTickerDetail] = useState<TTicker>();
@@ -21,10 +24,10 @@ function TickerDetail() {
   const allMarketInfo = useAllMarketValue();
 
   const cryptoInfo = useMemo(() => {
-    const marketInfo = allMarketInfo[code];
+    const marketInfo = allMarketInfo[code as string];
     const krName = marketInfo?.korean_name;
     const enName = marketInfo?.english_name;
-    const [currency, coinName] = (marketInfo?.market || "").split("-");
+    const [currency, coinName] = (marketInfo?.market || '').split('-');
 
     return {
       krName,
@@ -51,14 +54,14 @@ function TickerDetail() {
     change,
   } = tickerDetail || {};
 
-  const isPositive = change === "RISE";
-  const isNegative = change === "FALL";
+  const isPositive = change === 'RISE';
+  const isNegative = change === 'FALL';
 
   return (
     <S.TickerDetailWrapper>
       <S.LogoWrapper>
         {cryptoInfo.coinName && (
-          <LogoImage name={cryptoInfo.coinName} size={100} />
+          <LogoImage name={cryptoInfo.coinName} size={55} />
         )}
 
         <S.NameWrapper>
@@ -71,7 +74,7 @@ function TickerDetail() {
         <div className="comparison-price-wrapper">
           <p
             className={clsx([
-              "price",
+              'price',
               { positive: isPositive },
               { negative: isNegative },
             ])}
@@ -81,13 +84,13 @@ function TickerDetail() {
 
           <div
             className={clsx([
-              "prev-container",
+              'prev-container',
               { positive: isPositive },
               { negative: isNegative },
             ])}
           >
             전일대비:
-            <p>{convertToPercentage(signed_change_rate)}%</p>
+            <p>{convertToPercentage(signed_change_rate)}</p>
             <p>
               {convertToNumberLocale(signed_change_price)} {cryptoInfo.currency}
             </p>
@@ -95,10 +98,25 @@ function TickerDetail() {
         </div>
 
         <div className="transaction-value-wrapper">
-          <p>고가: {high_price}</p>
-          <p>저가: {low_price}</p>
-          <p>거래량(24H): {acc_trade_volume_24h}</p>
-          <p>거래대금(24H): {acc_trade_price_24h}</p>
+          <div>
+            <p>고가</p>
+            <p>{convertToNumberLocale(high_price)}</p>
+          </div>
+
+          <div>
+            <p>거래량(24H)</p>
+            <p>{convertToNumberLocale(acc_trade_volume_24h)}</p>
+          </div>
+
+          <div>
+            <p>저가</p>
+            <p>{convertToNumberLocale(low_price)}</p>
+          </div>
+
+          <div>
+            <p>거래대금(24H)</p>
+            <p>{convertToNumberLocale(acc_trade_price_24h)}</p>
+          </div>
         </div>
       </S.TransactionInfo>
     </S.TickerDetailWrapper>
