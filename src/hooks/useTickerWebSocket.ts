@@ -82,9 +82,9 @@ const useTickerWebSocket = () => {
   );
 
   useEffect(() => {
-    window.addEventListener("unload", () => {
-      resetGlobalState(EXTERNAL_API_BASE_URL.UPBIT_WS_TICKER);
-    });
+    window.addEventListener("unload", () =>
+      resetGlobalState(EXTERNAL_API_BASE_URL.UPBIT_WS_TICKER)
+    );
   }, []);
 
   return {

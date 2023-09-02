@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import Head from 'next/head';
-import { useEffect } from 'react';
+import Head from "next/head";
+import { useEffect } from "react";
 
-import { LayoutComponent } from '@/components';
+import { LayoutComponent } from "@/components";
 
 // import { initializeApp } from 'firebase/app';
 // import { getAnalytics } from 'firebase/analytics';
@@ -11,9 +11,9 @@ import { LayoutComponent } from '@/components';
 // import { FIRE_BASE_CONFIG } from '@/constpack';
 // import { GRAY, WHITE } from '@/designSystem';
 
-import type { AppProps } from 'next/app';
+import type { AppProps } from "next/app";
 
-import '../../public/assets/styles/index.scss';
+import "../../public/assets/styles/index.scss";
 
 const RootApp = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {

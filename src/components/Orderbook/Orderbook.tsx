@@ -29,8 +29,6 @@ function Orderbook() {
         <TickerDetail />
       </div>
 
-      <div className="chart-container">chart container</div>
-
       <div className="orderbook-container">
         <S.OrderbookContainer>
           <ul className="header">

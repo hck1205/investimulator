@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const OrderbookWrapper = styled.div`
-  margin: 0 20px 20px 20px;
+  margin: 20px;
 
   .orderbook-container {
     display: flex;
