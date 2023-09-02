@@ -1,14 +1,22 @@
 export const convertToNumberLocale = (value: number, options?: any) => {
-  return new Intl.NumberFormat("ko-KR", {
-    notation: "standard",
-    ...options,
-  }).format(value);
+  if (value) {
+    return new Intl.NumberFormat("ko-KR", {
+      notation: "standard",
+      ...options,
+    }).format(value);
+  } else {
+    return 0;
+  }
 };
 
 export const convertToPercentage = (value: number) => {
-  return convertToNumberLocale(Number(value), {
-    style: "percent",
-    maximumSignificantDigits: 2,
-    minimumSignificantDigits: 2,
-  });
+  if (value) {
+    return convertToNumberLocale(Number(value), {
+      style: "percent",
+      maximumSignificantDigits: 2,
+      minimumSignificantDigits: 2,
+    });
+  } else {
+    return 0;
+  }
 };

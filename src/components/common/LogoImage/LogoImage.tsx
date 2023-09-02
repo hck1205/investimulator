@@ -1,7 +1,7 @@
-import { EXTERNAL_API_BASE_URL } from '@/constpack';
-import Image from 'next/image';
+import { EXTERNAL_API_BASE_URL } from "@/constpack";
+import Image from "next/image";
 
-import * as S from './LogoImage.styled';
+import * as S from "./LogoImage.styled";
 
 const baseURL = `${EXTERNAL_API_BASE_URL.UPBIT_STATIC}/logos`;
 

@@ -7,15 +7,17 @@ import {
   WEB_SOCKET,
   WEB_SOCKET_CLOSE_CODE,
 } from "@/constpack";
+import { useOrderbookCodeValue } from "@/atoms/orderbookAtom/orderbookCodeAtom";
 
-const useTickerWebSocket = (code: string) => {
+const useSingleTickerWebSocket = () => {
   const [connectWebSocket, setConnectWebSocket] = useState(true);
+  const code = useOrderbookCodeValue();
 
   const { sendJsonMessage, lastMessage, readyState, getWebSocket } =
     useWebSocket(
       EXTERNAL_API_BASE_URL.UPBIT_WS_TICKER,
       {
-        onOpen: async () => {
+        onOpen: () => {
           try {
             return sendJsonMessage([
               { ticket: uuidv4() },
@@ -49,4 +51,4 @@ const useTickerWebSocket = (code: string) => {
   };
 };
 
-export default useTickerWebSocket;
+export default useSingleTickerWebSocket;

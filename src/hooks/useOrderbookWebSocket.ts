@@ -5,7 +5,6 @@ import useWebSocket from "react-use-websocket";
 import { useOrderbookCodeValue } from "@/atoms/orderbookAtom/orderbookCodeAtom";
 
 import {
-  DEFAULT_ORDERBOOK_CODE,
   EXTERNAL_API_BASE_URL,
   WEB_SOCKET,
   WEB_SOCKET_CLOSE_CODE,
@@ -21,11 +20,9 @@ const useOrderbookWebSocket = () => {
       {
         onOpen: () => {
           try {
-            const code = orderbookCode || DEFAULT_ORDERBOOK_CODE;
-
             return sendJsonMessage([
               { ticket: uuidv4() },
-              { type: WEB_SOCKET.ORDER_BOOK, codes: [code] },
+              { type: WEB_SOCKET.ORDER_BOOK, codes: [orderbookCode] },
             ]);
           } catch (e) {
             console.error("WEB_SOCKET.ORDER_BOOK onOpen: ", e);

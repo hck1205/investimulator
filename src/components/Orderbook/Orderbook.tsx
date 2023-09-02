@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { parseSocketMessage } from "@/utils";
 import useOrderbookWebSocket from "@/hooks/useOrderbookWebSocket";
 
-import TickerDetail from "@/components/TickerDetail";
 import OrderbookRow from "@/components/Orderbook/OrderbookRow";
 
 import * as S from "./Orderbook.styled";
@@ -25,10 +24,6 @@ function Orderbook() {
 
   return (
     <S.OrderbookWrapper>
-      <div className="ticker-detail-container">
-        <TickerDetail />
-      </div>
-
       <div className="orderbook-container">
         <S.OrderbookContainer>
           <ul className="header">
