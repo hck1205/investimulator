@@ -1,8 +1,7 @@
+import { BLUE, GRAY } from "@/designSystem";
 import styled from "@emotion/styled";
 
 export const OrderbookWrapper = styled.div`
-  margin: 20px;
-
   .orderbook-container {
     display: flex;
   }
@@ -17,13 +16,11 @@ export const OrderbookWrapper = styled.div`
 
 export const OrderbookContainer = styled.div`
   flex: 1;
-  max-height: 500px;
+  max-height: 550px;
   overflow-y: auto;
   font-size: 14px;
-
-  @media (max-width: 700px) {
-    font-size: 12px;
-  }
+  border: 1px solid ${GRAY(80)};
+  border-radius: 5px;
 
   ::-webkit-scrollbar {
     -webkit-appearance: none;
@@ -42,17 +39,14 @@ export const OrderbookContainer = styled.div`
     display: flex;
     justify-content: space-around;
     border-bottom: 1px solid #474a53;
+    background-color: #474a53;
     position: sticky;
-    top: 0%;
-    background-color: #353535;
+    top: 0;
 
     h3 {
       font-size: 15px;
       font-weight: 500;
-
-      @media (max-width: 700px) {
-        font-size: 14px;
-      }
+      color: #fff;
     }
   }
 

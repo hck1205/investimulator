@@ -1,15 +1,16 @@
 const COLORS = Object.freeze({
-  'white-100': '#fff',
+  "white-100": "#fff",
 
-  'red-50': '#ef5350',
+  "red-50": "#ef5350",
 
-  'blue-30': '#474a53',
-  'blue-50': '#1677ff',
+  "blue-30": "#474a53",
+  "blue-50": "#1677ff",
 
-  'green-50': '#26A69A',
+  "green-50": "#26A69A",
 
-  'gray-50': '#a8a8a8',
-  'gray-100': '#353535',
+  "gray-50": "#a8a8a8",
+  "gray-80": "#e6e6e6",
+  "gray-100": "#353535",
 });
 
 export const WHITE = (number: Number) => COLORS[`white-${number}`];
