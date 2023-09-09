@@ -1,14 +1,15 @@
 import { useAtom } from "jotai";
-import { Button, Drawer, Space } from "antd";
+import { Drawer } from "antd";
+import { CloseOutlined } from "@ant-design/icons";
 
 import { useCryptoDetailDrawerOpenAtom } from "@/atoms/cryptoDetailDrawerOpenAtom";
 
-import TickerDetail from "../TickerTransactionDetail/TickerTransactionDetail";
+import TickerDetail from "../TickerTransactionDetail";
 import Orderbook from "../Orderbook/Orderbook";
 import Title from "./Title";
 
 import { CloseIconWrapper, ContentWrapper } from "./CryptoDetailDrawer.styled";
-import { CloseOutlined } from "@ant-design/icons";
+import OrderTab from "../OrderForm/OrderTab";
 
 function CryptoDetailDrawer() {
   const [open, setOpen] = useAtom(useCryptoDetailDrawerOpenAtom);
@@ -26,7 +27,7 @@ function CryptoDetailDrawer() {
       open={open}
       closable={false}
       extra={
-        <CloseIconWrapper>
+        <CloseIconWrapper onClick={onClose}>
           <CloseOutlined />
         </CloseIconWrapper>
       }
@@ -34,6 +35,7 @@ function CryptoDetailDrawer() {
       <ContentWrapper>
         <TickerDetail />
         <Orderbook />
+        <OrderTab />
       </ContentWrapper>
     </Drawer>
   );

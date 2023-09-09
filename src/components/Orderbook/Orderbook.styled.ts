@@ -1,22 +1,15 @@
-import { BLUE, GRAY } from "@/designSystem";
+import { GRAY } from "@/designSystem";
 import styled from "@emotion/styled";
 
 export const OrderbookWrapper = styled.div`
   .orderbook-container {
     display: flex;
   }
-
-  .make-order-container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 `;
 
 export const OrderbookContainer = styled.div`
   flex: 1;
-  max-height: 550px;
+  max-height: 400px;
   overflow-y: auto;
   font-size: 14px;
   border: 1px solid ${GRAY(80)};

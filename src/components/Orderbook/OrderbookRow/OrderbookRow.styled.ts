@@ -1,13 +1,13 @@
-import { BLUE, GREEN, RED } from "@/designSystem";
+import { BLUE, GRAY, GREEN, RED } from "@/designSystem";
 import styled from "@emotion/styled";
 
 export const OrderbookRow = styled.li<{ order: number }>`
   order: ${({ order }) => order};
   display: flex;
   justify-content: space-around;
-  height: 45px;
-  line-height: 45px;
-  border-bottom: 1px solid #717171;
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid ${GRAY(80)};
 
   div {
     flex: 1;

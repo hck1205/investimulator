@@ -39,6 +39,7 @@ function Orderbook() {
                   <OrderbookRow
                     key={`${orderbookData.code}-${index}`}
                     no={index + 1}
+                    code={orderbookData.code}
                     {...data}
                   />
                 );
@@ -46,8 +47,6 @@ function Orderbook() {
             )}
           </ul>
         </S.OrderbookContainer>
-
-        <div className="make-order-container"> 준비중입니다. </div>
       </div>
     </S.OrderbookWrapper>
   );

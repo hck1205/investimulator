@@ -78,9 +78,8 @@ function TickerTransactionDetail() {
               { negative: isNegative },
             ])}
           >
-            전일대비:
             <p>{formatValue({ value: signed_change_rate, type: "rate" })}</p>
-            <p>{formatValue({ value: signed_change_price })}</p>
+            <p>{formatValue({ value: signed_change_price })}</p>(전일대비)
           </div>
         </div>
 

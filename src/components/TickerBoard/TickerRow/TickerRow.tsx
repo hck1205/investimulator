@@ -8,6 +8,8 @@ import TradePrice from "./TradePrice";
 import ComparisonPrice from "./ComparisonPrice";
 import TransactionAmount from "./TransactionAmount";
 
+import { useCryptoDetailDrawerOpenWrite } from "@/atoms/cryptoDetailDrawerOpenAtom";
+
 import type { TTicker } from "@/types";
 import * as S from "./TickerRow.styled";
 
@@ -33,39 +35,7 @@ function TickerRow({ ticker }: TProps) {
 
   const allMarketInfo = useAllMarketValue();
   const setOrderbookCode = useOrderbookCodeWrite();
-
-  const [currentPrice, setCurrentPrice] = useState(0);
-  const [currentStatus, setCurrentStatus] = useState({
-    status: STATUS.NEUTRAL, // -1: negative, 0: neutral, 1: positive
-  });
-
-  useEffect(() => {
-    if (currentPrice === 0) {
-      setCurrentPrice(signed_change_price);
-    } else {
-      if (signed_change_price === currentPrice) {
-        setCurrentStatus({ status: STATUS.NEUTRAL });
-      } else {
-        const isPositive = signed_change_price > currentPrice;
-        const status = isPositive ? STATUS.POSITIVE : STATUS.NEGATIVE;
-        setCurrentStatus({ status });
-        setCurrentPrice(signed_change_price);
-      }
-    }
-  }, [signed_change_price]);
-
-  useEffect(() => {
-    const row = document.getElementById(code);
-
-    if (row) {
-      const { status } = currentStatus;
-      row.classList.add(status);
-
-      setTimeout(() => {
-        row.classList.remove(status);
-      }, 1000);
-    }
-  }, [currentStatus]);
+  const setIsDrawerOpen = useCryptoDetailDrawerOpenWrite();
 
   const handleClickRowEvent = (event: MouseEvent<HTMLTableRowElement>) => {
     if (event.target instanceof HTMLElement) {
@@ -76,6 +46,7 @@ function TickerRow({ ticker }: TProps) {
         // SAVE localStorage
       } else {
         setOrderbookCode(code);
+        setIsDrawerOpen(true);
       }
     }
 
@@ -83,12 +54,16 @@ function TickerRow({ ticker }: TProps) {
   };
 
   return (
-    <S.TickerRow id={code} onClick={handleClickRowEvent}>
+    <S.TickerRow onClick={handleClickRowEvent}>
       {/* 네임 */}
       <Name marketInfo={allMarketInfo[code]} />
 
       {/* 현재가 */}
-      <TradePrice tradePrice={trade_price} />
+      <TradePrice
+        id={code}
+        signed_change_price={signed_change_price}
+        tradePrice={trade_price}
+      />
 
       {/* 전일대비 */}
       <ComparisonPrice

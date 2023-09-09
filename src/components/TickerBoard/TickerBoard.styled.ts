@@ -1,9 +1,7 @@
 import { BLUE, GRAY } from "@/designSystem";
 import styled from "@emotion/styled";
 
-export const TableBoardWrapper = styled.div`
-  padding: 0 20px;
-`;
+export const TableBoardWrapper = styled.div``;
 
 export const MarketTable = styled.table`
   width: 100%;
@@ -14,7 +12,7 @@ export const MarketTable = styled.table`
     height: 50px;
     font-size: 16px;
 
-    @media (max-width: 700px) {
+    @media (max-width: 800px) {
       font-size: 12px;
     }
 
@@ -32,7 +30,7 @@ export const MarketTable = styled.table`
 
         &:first-of-type,
         &:last-of-type {
-          padding: 0 3px;
+          padding: 0 20px;
         }
       }
 
