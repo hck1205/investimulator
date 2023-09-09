@@ -1,7 +1,5 @@
-import { useState } from "react";
-import { Radio, Tabs } from "antd";
+import { Tabs } from "antd";
 
-import type { RadioChangeEvent } from "antd";
 import * as S from "./OrderTab.styled";
 
 function OrderTab() {

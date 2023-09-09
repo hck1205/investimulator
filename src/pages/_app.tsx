@@ -5,11 +5,10 @@ import { useEffect } from "react";
 
 import { LayoutComponent } from "@/components";
 
-// import { initializeApp } from 'firebase/app';
-// import { getAnalytics } from 'firebase/analytics';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 
-// import { FIRE_BASE_CONFIG } from '@/constpack';
-// import { GRAY, WHITE } from '@/designSystem';
+import { FIRE_BASE_CONFIG } from "@/constpack";
 
 import type { AppProps } from "next/app";
 
@@ -17,8 +16,8 @@ import "../../public/assets/styles/index.scss";
 
 const RootApp = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
-    // const app = initializeApp(FIRE_BASE_CONFIG);
-    // const analytics = getAnalytics(app);
+    const app = initializeApp(FIRE_BASE_CONFIG);
+    getAnalytics(app);
   }, []);
 
   return (

@@ -1,5 +1,6 @@
 import TickerBoard from "@/components/TickerBoard";
 import DetailDrawer from "@/components/DetailDrawer";
+import LoginModal from "@/components/LoginModal/LoginModal";
 
 import * as S from "./styled";
 
@@ -8,6 +9,7 @@ function Main() {
     <S.MainPageWrapper>
       <TickerBoard />
       <DetailDrawer />
+      <LoginModal />
     </S.MainPageWrapper>
   );
 }
